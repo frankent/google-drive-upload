@@ -5,6 +5,8 @@
 
 #!/bin/bashset -e
 
+set -x #echo on
+
 function usage(){
 
 	echo -e "\nThe script can be used to upload file/directory to google drive." 
