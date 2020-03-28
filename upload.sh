@@ -188,7 +188,7 @@ function uploadFile(){
 	# If the file size is large then the content can be split to chunks and uploaded.
 	# In that case content range needs to be specified.
 	log "Uploading file $FILE to google drive..."
-	log "$uploadlink"
+	echo "Link --> $uploadlink"
 	
 	curl \
 	-X PUT \
