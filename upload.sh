@@ -182,7 +182,7 @@ function uploadFile(){
 				-H "X-Upload-Content-Length: $FILESIZE" \
 				-d "$postData" \
 				"https://www.googleapis.com/upload/drive/v2/files?uploadType=resumable&supportsAllDrives=true&supportsTeamDrives=true" \
-				--dump-header - | sed -ne s/"Location: "//pi | tr -d '\r\n'`
+				--dump-header - | sed -ne s/"location: "//pi | tr -d '\r\n'`
 
 	# Curl command to push the file to google drive.
 	# If the file size is large then the content can be split to chunks and uploaded.
