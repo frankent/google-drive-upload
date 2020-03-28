@@ -169,49 +169,35 @@ function uploadFile(){
 	# JSON post data to specify the file name and folder under while the file to be created
 	postData="{\"mimeType\": \"$MIME_TYPE\",\"title\": \"$SLUG\",\"parents\": [{\"id\": \"$FOLDER_ID\"}]}"
 	postDataSize=$(echo $postData | wc -c)
-	
-	log "Start to upload $FILE ..."
-	curl \
-	--silent \
-	-X POST \
-	-H "Host: www.googleapis.com" \
-	-H "Authorization: Bearer $ACCESS_TOKEN" \
-	-H "Content-Type: application/json; charset=UTF-8" \
-	-H "X-Upload-Content-Type: $MIME_TYPE" \
-	-H "X-Upload-Content-Length: $FILESIZE" \
-	-d "$postData" \
-	"https://www.googleapis.com/upload/drive/v2/files?uploadType=resumable&supportsAllDrives=true&supportsTeamDrives=true" \
-	--dump-header - | sed -ne s/"Location: "//pi | tr -d '\r\n'
 
 	# Curl command to initiate resumable upload session and grab the location URL
-# 	log "Generating upload link for file $FILE ..."
-# 	uploadlink=`/usr/bin/curl \
-# 	--silent \
-# 	-X POST \
-# 	-H "Host: www.googleapis.com" \
-# 	-H "Authorization: Bearer $ACCESS_TOKEN" \
-# 	-H "Content-Type: application/json; charset=UTF-8" \
-# 	-H "X-Upload-Content-Type: $MIME_TYPE" \
-# 	-H "X-Upload-Content-Length: $FILESIZE" \
-# 	-d "$postData" \
-# 	"https://www.googleapis.com/upload/drive/v2/files?uploadType=resumable&supportsAllDrives=true&supportsTeamDrives=true" \
-# 	--dump-header - | sed -ne s/"Location: "//pi | tr -d '\r\n'`
+	log "Generating upload link for file $FILE ..."
+	uploadlink=`/usr/bin/curl \
+        --silent \
+        -X POST \
+        -H "Host: www.googleapis.com" \
+        -H "Authorization: Bearer $ACCESS_TOKEN" \
+        -H "Content-Type: application/json; charset=UTF-8" \
+        -H "X-Upload-Content-Type: $MIME_TYPE" \
+        -H "X-Upload-Content-Length: $FILESIZE" \
+        -d "$postData" \
+        "https://www.googleapis.com/upload/drive/v2/files?uploadType=resumable&supportsAllDrives=true&supportsTeamDrives=true" \
+        --dump-header - | sed -ne s/"Location: "//pi | tr -d '\r\n'`
 
 	# Curl command to push the file to google drive.
 	# If the file size is large then the content can be split to chunks and uploaded.
 	# In that case content range needs to be specified.
-# 	log "Uploading file $FILE to google drive..."
+	log "Uploading file $FILE to google drive..."
 	
-# 	curl \
-# 	-X PUT \
-# 	-H "Authorization: Bearer $ACCESS_TOKEN" \
-# 	-H "Content-Type: $MIME_TYPE" \
-# 	-H "Content-Length: $FILESIZE" \
-# 	-H "Slug: $SLUG" \
-# 	--upload-file "$FILE" \
-# 	--output /dev/null \
-# 	"$uploadlink" \
-# 	$curl_args
+	curl \
+        -X PUT \
+        -H "Authorization: Bearer $ACCESS_TOKEN" \
+        -H "Content-Type: $MIME_TYPE" \
+        -H "Content-Length: $FILESIZE" \
+        -H "Slug: $SLUG" \
+        --upload-file "$FILE" \
+        --output /dev/null \
+        "$uploadlink"
 }
 
 old_umask=`umask`
