@@ -176,7 +176,7 @@ function uploadFile(){
 				--silent \
 				-X POST \
 				-H "Host: www.googleapis.com" \
-				-H "Authorization: Bearer ${ACCESS_TOKEN}" \
+				-H "Authorization: Bearer $ACCESS_TOKEN" \
 				-H "Content-Type: application/json; charset=UTF-8" \
 				-H "X-Upload-Content-Type: $MIME_TYPE" \
 				-H "X-Upload-Content-Length: $FILESIZE" \
@@ -191,7 +191,7 @@ function uploadFile(){
 	
 	curl \
 	-X PUT \
-	-H "Authorization: Bearer ${ACCESS_TOKEN}" \
+	-H "Authorization: Bearer $ACCESS_TOKEN" \
 	-H "Content-Type: $MIME_TYPE" \
 	-H "Content-Length: $FILESIZE" \
 	-H "Slug: $SLUG" \
