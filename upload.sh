@@ -182,7 +182,6 @@ function uploadFile(){
 	-d "$postData" \
 	"https://www.googleapis.com/upload/drive/v2/files?uploadType=resumable&supportsAllDrives=true&supportsTeamDrives=true" \
 	--dump-header - | sed -ne s/"Location: "//pi | tr -d '\r\n'
-	$curl_args
 
 	# Curl command to initiate resumable upload session and grab the location URL
 # 	log "Generating upload link for file $FILE ..."
