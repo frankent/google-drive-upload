@@ -5,8 +5,6 @@
 
 #!/bin/bashset -e
 
-set -x #echo on
-
 function usage(){
 
 	echo -e "\nThe script can be used to upload file/directory to google drive." 
@@ -190,7 +188,6 @@ function uploadFile(){
 	# If the file size is large then the content can be split to chunks and uploaded.
 	# In that case content range needs to be specified.
 	log "Uploading file $FILE to google drive..."
-	echo "Link --> $uploadlink"
 	
 	curl \
 	-X PUT \
